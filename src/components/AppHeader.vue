@@ -37,6 +37,20 @@ header {
         font-size: 30px;
         font-weight: 600;
     }
+
+    .search {
+        padding-right: 15px;
+
+        input {
+            width: 200px;
+            padding: 3px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 3px 5px;
+        }
+    }
 }
 
 </style>

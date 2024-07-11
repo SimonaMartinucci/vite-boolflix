@@ -12,19 +12,31 @@ export default {
             store,
         }
     },
+    computed: {
+        hasMovies() {
+            return this.store.movieList.length > 0;
+        },
+
+        hasSeries() {
+            return this.store.seriesList.length > 0;
+        },
+    }
 }
 </script>
 
 <template>
-
-    <h2>FILM</h2>  
-    <div v-for="movie in store.movieList" :key="movie.id">
-        <SinglePoster :info="{ type: 'movie', details: movie }" />
+    <div v-if="hasMovies">
+        <h2>FILM</h2>  
+        <div v-for="movie in store.movieList" :key="movie.id">
+            <SinglePoster :info="{ type: 'movie', details: movie }" />
+        </div>
     </div>
 
-    <h2>SERIE TV</h2>
-    <div v-for="show in store.seriesList" :key="show.id">
-        <SinglePoster :info="{ type: 'series', details: show }" />
+    <div v-if="hasSeries">
+        <h2>SERIE TV</h2>
+        <div v-for="show in store.seriesList" :key="show.id">
+            <SinglePoster :info="{ type: 'series', details: show }" />
+        </div>
     </div>
 </template>
 
