@@ -17,8 +17,8 @@ export default {
 
 <template>
 
-    <div>
-        <SinglePoster />
+    <div v-for="(movie,index) in store.movieList" :key="index">
+        <SinglePoster :info="movie" />
     </div>
 </template>
 
