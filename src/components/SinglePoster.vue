@@ -27,6 +27,14 @@ export default {
         flagUrl() {
             const flag = this.flagsList.find(flag => flag.lang === this.info.details.original_language);
             return flag ? flag.url : '';
+        },
+
+        fullStars() {
+            return this.newRating(this.info.details.vote_average);
+        },
+
+        emptyStars() {
+            return 5 - this.fullStars;
         }
     },
     methods: {
@@ -39,7 +47,7 @@ export default {
 
 <template>
     <div v-if="info.type === 'movie'">
-        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`">
+        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
         <span v-else>Nessuna immagine disponibile</span>
         <h3>{{ info.details.title }}</h3>
         <h4>{{ info.details.original_title }}</h4>
@@ -47,24 +55,35 @@ export default {
             <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
             <span v-else>{{ info.details.original_language }}</span>
         </h4>
-        <h4>{{ changeRating }}</h4>
+        <div>
+            <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
+            <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+        </div>
+        <!-- <h4>{{ changeRating }}</h4> -->
     </div>
     
     <div v-else-if="info.type === 'series'">
-        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`">
-        <span v-else>Nessuna immagine disponibile</span>
+        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
+        <span v-else>Nessuna immagine disponibile</span>>
         <h3>{{ info.details.name }}</h3>
         <h4>{{ info.details.original_name }}</h4>
         <h4>
             <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
             <span v-else>{{ info.details.original_language }}</span>
         </h4>
-        <h4>{{ changeRating }}</h4>
+        <div>
+            <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
+            <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+        </div>
+        <!-- <h4>{{ changeRating }}</h4> -->
     </div>
 </template>
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
+.fa-star {
+    color: gold;
+}
 
 </style>
