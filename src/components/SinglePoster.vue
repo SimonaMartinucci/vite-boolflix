@@ -15,7 +15,8 @@ export default {
                 {lang: 'de', url: 'https://media.istockphoto.com/id/994137398/it/foto/simbolo-della-bandiera-tedesca.jpg?s=612x612&w=0&k=20&c=l8jS_NaEWyYPkj3lp-EGuvzv7tFqav2imUOcysscYNo='},
                 {lang: 'es', url: 'https://italflag.it/wp-content/uploads/2021/11/Bandiera-Spagna.jpg'},
                 {lang: 'ja', url: 'https://italflag.it/wp-content/uploads/2021/11/Bandiera-Giappone.jpg'}
-            ]
+            ],
+            imgUrl: 'https://image.tmdb.org/t/p/w342',
         }
     },
     computed: {
@@ -38,6 +39,8 @@ export default {
 
 <template>
     <div v-if="info.type === 'movie'">
+        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`">
+        <span v-else>Nessuna immagine disponibile</span>
         <h3>{{ info.details.title }}</h3>
         <h4>{{ info.details.original_title }}</h4>
         <h4>
@@ -48,6 +51,8 @@ export default {
     </div>
     
     <div v-else-if="info.type === 'series'">
+        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`">
+        <span v-else>Nessuna immagine disponibile</span>
         <h3>{{ info.details.name }}</h3>
         <h4>{{ info.details.original_name }}</h4>
         <h4>
