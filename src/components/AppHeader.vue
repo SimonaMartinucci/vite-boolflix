@@ -15,7 +15,7 @@ export default {
     <header>
         <h1>BOOLFLIX</h1>
         <div class="search">
-            <input type="text" placeholder="Cerca" v-model="store.userInput">
+            <input type="text" placeholder="Cerca" v-model="store.userInput" @keyup.enter="$emit('search')">
             <button @click="$emit('search')">Cerca</button>
         </div>
     </header>

@@ -26,21 +26,41 @@ export default {
       axios.get(endPoint)
       .then(res => {
         store.movieList = res.data.results;
-        console.log(store.movieList)
       })
       .catch(err => {
         console.log(err);
       });
+    },
+
+    searchSeries() {
+      let endPoint = store.seriesURL;
+
+      if(store.inputUser !== '') {
+        endPoint += `&query=${store.userInput}`
+      }
+
+      axios.get(endPoint)
+      .then(res => {
+        store.seriesList = res.data.results;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
+
+    searchBoth() {
+      this.searchMovies();
+      this.searchSeries();
     }
   },
   created() {
-    this.searchMovies();
+    this.searchBoth();
   }
 }
 </script>
 
 <template>
-  <AppHeader @search="searchMovies" />
+  <AppHeader @search="searchBoth" />
  
   <main>
     <AppPosters />
