@@ -71,4 +71,8 @@ export default {
 @use '../src/styles/partials/variables' as *;
 @use '../src/styles/general.scss' as *;
 
+main {
+  background-color: $primary;
+  padding: 30px 0;
+}
 </style>

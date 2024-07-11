@@ -46,44 +46,52 @@ export default {
 </script>
 
 <template>
-    <div v-if="info.type === 'movie'">
-        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
+    <div class="card" v-if="info.type === 'movie'">
+        <img class="poster" v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
         <span v-else>Nessuna immagine disponibile</span>
         <h3>{{ info.details.title }}</h3>
         <h4>{{ info.details.original_title }}</h4>
-        <h4>
+        <div>
             <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
             <span v-else>{{ info.details.original_language }}</span>
-        </h4>
+        </div>
         <div>
             <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
             <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
         </div>
-        <!-- <h4>{{ changeRating }}</h4> -->
     </div>
     
-    <div v-else-if="info.type === 'series'">
-        <img v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
-        <span v-else>Nessuna immagine disponibile</span>>
+    <div class="card" v-else-if="info.type === 'series'">
+        <img class="poster" v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
+        <span v-else>Nessuna immagine disponibile</span>
         <h3>{{ info.details.name }}</h3>
         <h4>{{ info.details.original_name }}</h4>
-        <h4>
+        <div>
             <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
             <span v-else>{{ info.details.original_language }}</span>
-        </h4>
+        </div>
         <div>
             <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
             <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
         </div>
-        <!-- <h4>{{ changeRating }}</h4> -->
     </div>
 </template>
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
-.fa-star {
-    color: gold;
+.card {
+    width: 342px;
+
+    img.poster {
+        max-width: 100%;
+        height: 513px;
+        object-fit: cover;
+    }
+
+    .fa-star {
+        color: gold;
+    }
 }
 
 </style>
