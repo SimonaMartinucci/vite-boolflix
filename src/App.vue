@@ -20,12 +20,13 @@ export default {
       let endPoint = store.apiURL;
 
       if(store.inputUser !== '') {
-        endPoint += `&query=${store.inputUser}`
+        endPoint += `&query=${store.userInput}`
       }
 
       axios.get(endPoint)
       .then(res => {
         store.movieList = res.data.results;
+        console.log(store.movieList)
       })
       .catch(err => {
         console.log(err);
