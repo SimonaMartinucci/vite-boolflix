@@ -17,13 +17,10 @@ export default {
                 {lang: 'ja', url: 'https://italflag.it/wp-content/uploads/2021/11/Bandiera-Giappone.jpg'}
             ],
             imgUrl: 'https://image.tmdb.org/t/p/w342',
+            hover: false,
         }
     },
     computed: {
-        changeRating() {
-            return this.newRating(this.info.details.vote_average);
-        },
-
         flagUrl() {
             const flag = this.flagsList.find(flag => flag.lang === this.info.details.original_language);
             return flag ? flag.url : '';
@@ -35,6 +32,10 @@ export default {
 
         emptyStars() {
             return 5 - this.fullStars;
+        },
+
+        bgImage() {
+            return `${this.imgUrl}${this.info.details.poster_path}`;
         }
     },
     methods: {
@@ -47,32 +48,38 @@ export default {
 
 <template>
     <div class="card" v-if="info.type === 'movie'">
-        <img class="poster" v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
-        <span v-else>Nessuna immagine disponibile</span>
-        <h3>{{ info.details.title }}</h3>
-        <h4>{{ info.details.original_title }}</h4>
-        <div>
-            <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
-            <span v-else>{{ info.details.original_language }}</span>
-        </div>
-        <div>
-            <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
-            <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+        <div class="poster" :style="info.details.poster_path ? { backgroundImage: `url(${bgImage})`} : { backgroundColor: 'black'}" @mouseenter="hover = true" @mouseleave="hover = false">
+            <div class="content" v-show="hover">
+                <h3>{{ info.details.title }}</h3>
+                <h4>{{ info.details.original_title }}</h4>
+                <div class="flag">
+                    <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
+                    <span v-else>{{ info.details.original_language }}</span>
+                </div>
+                <div class="stars">
+                    <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
+                    <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+                </div>
+                <p>{{ info.details.overview }}</p>
+            </div>
         </div>
     </div>
     
     <div class="card" v-else-if="info.type === 'series'">
-        <img class="poster" v-if="info.details.poster_path" :src="`${imgUrl}${info.details.poster_path}`" :alt="info.details.title">
-        <span v-else>Nessuna immagine disponibile</span>
-        <h3>{{ info.details.name }}</h3>
-        <h4>{{ info.details.original_name }}</h4>
-        <div>
-            <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
-            <span v-else>{{ info.details.original_language }}</span>
-        </div>
-        <div>
-            <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
-            <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+        <div class="poster" :style="info.details.poster_path ? { backgroundImage: `url(${bgImage})`} : { backgroundColor: 'black'}" @mouseenter="hover = true" @mouseleave="hover = false">
+            <div class="content" v-show="hover">
+                <h3>{{ info.details.name }}</h3>
+                <h4>{{ info.details.original_name }}</h4>
+                <div class="flag">
+                    <img v-if="flagUrl" :src="flagUrl" alt="bandiera" width="30">
+                    <span v-else>{{ info.details.original_language }}</span>
+                </div>
+                <div class="stars">
+                    <i v-for="star in fullStars" :key="star" class="fas fa-star"></i>
+                    <i v-for="star in emptyStars" :key="star" class="far fa-star"></i>
+                </div>
+                <p>{{ info.details.overview }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -83,14 +90,50 @@ export default {
 .card {
     width: 342px;
 
-    img.poster {
+    .poster,
+    .no-poster {
         max-width: 100%;
         height: 513px;
-        object-fit: cover;
     }
 
-    .fa-star {
-        color: gold;
+    .poster {
+        background-size: cover;
+
+        .content {
+            padding: 20px;
+            color: white;
+            background-color: black;
+            height: 100%;
+
+            h4,
+            .flag,
+            .stars {
+                margin-bottom: 15px;
+            }
+
+            h3 {
+                font-size: 22px;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            h4 {
+                font-size: 15px;
+                font-weight: 500;
+            }
+
+            .fa-star {
+                color: gold;
+            }
+
+            p {
+                max-height: 300px;
+                font-size: 14px;
+                overflow-y: auto;
+                line-height: 150%;
+            }
+
+        }
     }
 }
 
