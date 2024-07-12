@@ -72,6 +72,8 @@ export default {
 @use '../src/styles/general.scss' as *;
 
 main {
+  height: calc(100vh - 100px);
+  overflow-y: auto;
   background-color: $primary;
   padding: 30px 0;
 }

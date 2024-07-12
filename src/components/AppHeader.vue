@@ -53,4 +53,16 @@ header {
     }
 }
 
+// rendo responsive la parte di ricerca
+@media all and (max-width: 500px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        height: 150px;
+
+        h1 {
+            padding-bottom: 30px;
+        }
+    }
+}
 </style>

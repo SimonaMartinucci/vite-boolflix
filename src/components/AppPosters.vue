@@ -25,6 +25,8 @@ export default {
 </script>
 
 <template>
+    <div class="start" v-if="!hasMovies && !hasSeries">CERCA FILM O SERIE TV</div>
+
     <h2 v-if="hasMovies">FILM</h2>  
     <div class="container" v-if="hasMovies">
         <div class="col" v-for="movie in store.movieList" :key="movie.id">
@@ -43,12 +45,19 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
+.start {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
 h2 {
     color: white;
     text-align: center;
     font-size: 30px;
     font-weight: 600;
-    // padding-top: 30px;
+    padding: 30px 0;
 }
 .container {
     margin: 30px;
@@ -56,5 +65,6 @@ h2 {
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    padding-bottom: 30px;
 }
 </style>

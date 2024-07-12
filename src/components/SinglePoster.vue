@@ -49,6 +49,7 @@ export default {
 <template>
     <div class="card" v-if="info.type === 'movie'">
         <div class="poster" :style="info.details.poster_path ? { backgroundImage: `url(${bgImage})`} : { backgroundColor: 'black'}" @mouseenter="hover = true" @mouseleave="hover = false">
+            <div class="no-poster" v-if="!info.details.poster_path && hover === false">{{ info.details.title }}</div>
             <div class="content" v-show="hover">
                 <h3>{{ info.details.title }}</h3>
                 <h4>{{ info.details.original_title }}</h4>
@@ -67,6 +68,7 @@ export default {
     
     <div class="card" v-else-if="info.type === 'series'">
         <div class="poster" :style="info.details.poster_path ? { backgroundImage: `url(${bgImage})`} : { backgroundColor: 'black'}" @mouseenter="hover = true" @mouseleave="hover = false">
+            <div class="no-poster" v-if="!info.details.poster_path && hover === false">{{ info.details.name }}</div>
             <div class="content" v-show="hover">
                 <h3>{{ info.details.name }}</h3>
                 <h4>{{ info.details.original_name }}</h4>
@@ -90,14 +92,10 @@ export default {
 .card {
     width: 342px;
 
-    .poster,
-    .no-poster {
-        max-width: 100%;
-        height: 513px;
-    }
-
     .poster {
         background-size: cover;
+        max-width: 100%;
+        height: 513px;
 
         .content {
             padding: 20px;
@@ -134,6 +132,13 @@ export default {
             }
 
         }
+    }
+
+    .no-poster {
+        color: white;
+        text-align: center;
+        padding: 250px 30px 0;
+        font-size: 30px;
     }
 }
 
